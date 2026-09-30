@@ -150,6 +150,47 @@ export type Database = {
           },
         ]
       >;
+      product_images: Table<
+        {
+          id: string;
+          product_id: string;
+          storage_path: string;
+          public_url: string | null;
+          alt_text: string | null;
+          sort_order: number;
+          is_primary: boolean;
+          created_at: string;
+        },
+        {
+          id?: string;
+          product_id: string;
+          storage_path: string;
+          public_url?: string | null;
+          alt_text?: string | null;
+          sort_order?: number;
+          is_primary?: boolean;
+          created_at?: string;
+        },
+        Partial<{
+          id: string;
+          product_id: string;
+          storage_path: string;
+          public_url: string | null;
+          alt_text: string | null;
+          sort_order: number;
+          is_primary: boolean;
+          created_at: string;
+        }>,
+        [
+          {
+            foreignKeyName: "product_images_product_id_fkey";
+            columns: ["product_id"];
+            isOneToOne: false;
+            referencedRelation: "products";
+            referencedColumns: ["id"];
+          },
+        ]
+      >;
     };
     Views: Record<string, never>;
     Functions: {
@@ -162,6 +203,26 @@ export type Database = {
         Returns: "ADMIN" | "COLLABORATOR" | null;
       };
       is_admin: { Args: Record<string, never>; Returns: boolean };
+      register_product_image: {
+        Args: {
+          p_product_id: string;
+          p_storage_path: string;
+          p_alt_text: string;
+        };
+        Returns: string;
+      };
+      set_product_image_primary: {
+        Args: { p_product_id: string; p_image_id: string };
+        Returns: undefined;
+      };
+      move_product_image: {
+        Args: {
+          p_product_id: string;
+          p_image_id: string;
+          p_direction: number;
+        };
+        Returns: undefined;
+      };
     };
     Enums: {
       product_status: "DRAFT" | "PUBLISHED" | "HIDDEN" | "OUT_OF_STOCK";

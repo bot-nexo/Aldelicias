@@ -34,6 +34,12 @@
 - Preserved the category INSERT, UPDATE, and SELECT policies; the migration does not modify data.
 - Added unit and PostgreSQL catalog regression checks for the migration contract.
 
+## 2026-09-30 — Product image management
+
+- Added migration `009_product_image_storage_management.sql` for the public catalog image bucket, business-scoped Storage policies, one-primary-image enforcement, and image management RPCs.
+- Added admin image upload, alt text, primary selection, reordering, and removal to product editing.
+- Added image validation and unit/integration checks; migration application and live Storage behavior still require verification in Supabase.
+
 ## Next
 
-- Apply and verify pending migrations, then continue the product catalog roadmap with product image management.
+- Apply and verify pending migration 009 and test the complete product image workflow in Supabase.

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { ProductForm } from "@/components/admin/products/product-form";
+import { ProductImageManager } from "@/components/admin/products/product-image-manager";
 import { requireActiveUserProfile } from "@/lib/auth/session";
 import { createClient } from "@/lib/supabase/server";
 
@@ -32,6 +33,28 @@ export default async function EditProductPage({
   if (error || categoriesError || !product) {
     notFound();
   }
+
+  const { data: productImages, error: imagesError } = await supabase
+    .from("product_images")
+    .select("id, storage_path, public_url, alt_text, sort_order, is_primary")
+    .eq("product_id", product.id)
+    .order("sort_order", { ascending: true })
+    .order("created_at", { ascending: true });
+
+  if (imagesError) {
+    throw new Error("No se pudieron cargar las imágenes del producto.");
+  }
+
+  const images = (productImages ?? []).map((image) => ({
+    id: image.id,
+    storagePath: image.storage_path,
+    publicUrl: supabase.storage
+      .from("product-images")
+      .getPublicUrl(image.storage_path).data.publicUrl,
+    altText: image.alt_text,
+    sortOrder: image.sort_order,
+    isPrimary: image.is_primary,
+  }));
 
   const categories = (allCategories ?? [])
     .filter(
@@ -72,6 +95,14 @@ export default async function EditProductPage({
         productId={product.id}
         categories={categories}
       />
+      {profile.role === "ADMIN" && (
+        <ProductImageManager
+          businessId={profile.business_id}
+          images={images}
+          productId={product.id}
+          productName={product.name}
+        />
+      )}
     </section>
   );
 }
