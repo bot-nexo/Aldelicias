@@ -1,5 +1,5 @@
+import { LayoutDashboard, Package, Store } from "lucide-react";
 import Link from "next/link";
-import { LayoutDashboard, Store } from "lucide-react";
 import type { ReactNode } from "react";
 
 import { SignOutButton } from "@/components/auth/sign-out-button";
@@ -29,14 +29,23 @@ export function AdminShell({ children, profile }: AdminShellProps) {
           </span>
         </Link>
         <nav aria-label="Navegación administrativa" className="flex-1 p-4">
-          <Link
-            aria-current="page"
-            className="flex min-h-11 items-center gap-3 rounded-md bg-[var(--color-surface-muted)] px-3 text-sm font-semibold"
-            href="/admin"
-          >
-            <LayoutDashboard aria-hidden="true" size={18} />
-            Inicio
-          </Link>
+          <div className="space-y-1.5">
+            <Link
+              aria-current="page"
+              className="flex min-h-11 items-center gap-3 rounded-md bg-[var(--color-surface-muted)] px-3 text-sm font-semibold"
+              href="/admin"
+            >
+              <LayoutDashboard aria-hidden="true" size={18} />
+              Inicio
+            </Link>
+            <Link
+              className="flex min-h-11 items-center gap-3 rounded-md px-3 text-sm font-medium text-[var(--color-ink-muted)] transition hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-ink)]"
+              href="/admin/productos"
+            >
+              <Package aria-hidden="true" size={18} />
+              Productos
+            </Link>
+          </div>
         </nav>
         <div className="flex items-center justify-between gap-2 border-t border-[var(--color-border)] p-4">
           <div className="min-w-0">
@@ -54,13 +63,17 @@ export function AdminShell({ children, profile }: AdminShellProps) {
           <Link className="text-sm font-bold" href="/admin">
             AlDelicias{" "}
             <span className="font-normal text-[var(--color-ink-muted)]">
-              / Inicio
+              / Panel
             </span>
           </Link>
           <div className="flex items-center gap-2">
-            <span className="max-w-36 truncate text-sm">
-              {profile.full_name}
-            </span>
+            <Link
+              className="inline-flex items-center gap-2 rounded-md px-2 py-1 text-sm font-medium text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]"
+              href="/admin/productos"
+            >
+              <Package aria-hidden="true" size={16} />
+              Productos
+            </Link>
             <SignOutButton />
           </div>
         </header>
