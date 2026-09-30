@@ -31,5 +31,7 @@ describe("Admin shell navigation", () => {
 
     expect(html).toContain("Productos");
     expect(html).toContain("/admin/productos");
+    expect(html).toContain("Inventario");
+    expect(html).toContain("/admin/inventario");
   });
 });

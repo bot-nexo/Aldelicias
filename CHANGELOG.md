@@ -40,6 +40,13 @@
 - Added admin image upload, alt text, primary selection, reordering, and removal to product editing.
 - Added image validation and unit/integration checks; migration application and live Storage behavior still require verification in Supabase.
 
+## 2026-09-30 — Inventory foundation
+
+- Documented the signed-movement inventory flow and added the inventory stock, history, wastage, and admin-adjustment interface.
+- Added migration `010_inventory_management.sql` for business-consistent append-only movements, scoped read RPCs, and transactional admin adjustments.
+- Reused the existing wastage RPC and left sales, purchases, cash, expenses, and financial functions unchanged.
+- Added action, migration-contract, and PostgreSQL integration tests; migration 010 still requires preflight and application in Supabase.
+
 ## Next
 
-- Apply and verify pending migration 009 and test the complete product image workflow in Supabase.
+- Apply and verify pending migrations 009 and 010 after their preflight checks; do not proceed to another module until inventory is verified.

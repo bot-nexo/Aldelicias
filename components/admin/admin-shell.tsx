@@ -1,4 +1,4 @@
-import { LayoutDashboard, Package, Store } from "lucide-react";
+import { ClipboardList, LayoutDashboard, Package, Store } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
@@ -45,6 +45,13 @@ export function AdminShell({ children, profile }: AdminShellProps) {
               <Package aria-hidden="true" size={18} />
               Productos
             </Link>
+            <Link
+              className="flex min-h-11 items-center gap-3 rounded-md px-3 text-sm font-medium text-[var(--color-ink-muted)] transition hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-ink)]"
+              href="/admin/inventario"
+            >
+              <ClipboardList aria-hidden="true" size={18} />
+              Inventario
+            </Link>
           </div>
         </nav>
         <div className="flex items-center justify-between gap-2 border-t border-[var(--color-border)] p-4">
@@ -73,6 +80,14 @@ export function AdminShell({ children, profile }: AdminShellProps) {
             >
               <Package aria-hidden="true" size={16} />
               Productos
+            </Link>
+            <Link
+              aria-label="Inventario"
+              className="inline-flex size-9 items-center justify-center rounded-md text-[var(--color-ink-muted)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-ink)]"
+              href="/admin/inventario"
+              title="Inventario"
+            >
+              <ClipboardList aria-hidden="true" size={16} />
             </Link>
             <SignOutButton />
           </div>

@@ -12,4 +12,8 @@ Los archivos `001_initial_schema.sql`, `002_rls_and_security.sql`, `003_business
 
 `tests/integration/product_image_storage_009.sql` comprueba el bucket, policies, índice de imagen principal y funciones después de aplicar 009. Ejecutarla en una base de pruebas aislada.
 
+`010_inventory_management.sql` conserva el modelo de movimientos firmados, agrega consultas sanitizadas por negocio, ajuste administrativo transaccional, validación de referencias e inmutabilidad de movimientos. Antes de crear triggers, aborta si encuentra movimientos históricos con producto, ubicación o autor de otro negocio; resuelve esos datos sin reescritura antes de aplicarla. Las mermas siguen usando la RPC autorizada de 006; compras y ventas no se modifican.
+
+`tests/integration/inventory_010.sql` requiere un PostgreSQL aislado con migraciones 001-010 y las fixtures de `tests/integration/hardening.sql`. Comprueba lectura operativa, permisos de ADMIN/COLLABORATOR, aislamiento, stock no negativo, auditoría e inmutabilidad.
+
 `004_business_rules_tests.md` es una matriz documental, no una migración SQL. Las reglas pendientes de caja/compras continúan pendientes; este bootstrap no agrega funciones de negocio ni seeds.

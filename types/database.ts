@@ -56,6 +56,28 @@ export type Database = {
           last_login_at?: string | null;
         }
       >;
+      locations: Table<
+        {
+          id: string;
+          business_id: string;
+          vehicle_id: string | null;
+          name: string;
+          type: "WAREHOUSE" | "VEHICLE" | "OTHER";
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        },
+        {
+          id?: string;
+          business_id: string;
+          vehicle_id?: string | null;
+          name: string;
+          type: "WAREHOUSE" | "VEHICLE" | "OTHER";
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        }
+      >;
       categories: Table<
         {
           id: string;
@@ -191,6 +213,38 @@ export type Database = {
           },
         ]
       >;
+      inventory_movements: Table<
+        {
+          id: string;
+          business_id: string;
+          product_id: string;
+          location_id: string;
+          movement_type: Database["public"]["Enums"]["inventory_movement_type"];
+          quantity: number;
+          unit_cost: number;
+          total_cost: number;
+          reference_type: string | null;
+          reference_id: string | null;
+          reason: string | null;
+          created_by: string;
+          created_at: string;
+        },
+        {
+          id?: string;
+          business_id: string;
+          product_id: string;
+          location_id: string;
+          movement_type: Database["public"]["Enums"]["inventory_movement_type"];
+          quantity: number;
+          unit_cost?: number;
+          total_cost?: number;
+          reference_type?: string | null;
+          reference_id?: string | null;
+          reason?: string | null;
+          created_by: string;
+          created_at?: string;
+        }
+      >;
     };
     Views: Record<string, never>;
     Functions: {
@@ -223,8 +277,73 @@ export type Database = {
         };
         Returns: undefined;
       };
+      register_wastage: {
+        Args: {
+          p_product_id: string;
+          p_location_id: string;
+          p_quantity: number;
+          p_reason: string;
+        };
+        Returns: string;
+      };
+      get_inventory_stock: {
+        Args: Record<string, never>;
+        Returns: Array<{
+          business_id: string;
+          product_id: string;
+          product_name: string;
+          sku: string | null;
+          product_status: Database["public"]["Enums"]["product_status"];
+          minimum_stock: number;
+          location_id: string;
+          location_name: string;
+          current_stock: number;
+        }>;
+      };
+      get_inventory_movement_history: {
+        Args: {
+          p_product_id?: string | null;
+          p_location_id?: string | null;
+          p_limit?: number;
+          p_offset?: number;
+        };
+        Returns: Array<{
+          movement_id: string;
+          business_id: string;
+          product_id: string;
+          product_name: string;
+          location_id: string;
+          location_name: string;
+          movement_type: Database["public"]["Enums"]["inventory_movement_type"];
+          quantity: number;
+          reason: string | null;
+          reference_type: string | null;
+          reference_id: string | null;
+          created_by: string;
+          created_by_name: string;
+          created_at: string;
+        }>;
+      };
+      adjust_inventory_stock: {
+        Args: {
+          p_product_id: string;
+          p_location_id: string;
+          p_delta: number;
+          p_reason: string;
+        };
+        Returns: string;
+      };
     };
     Enums: {
+      inventory_movement_type:
+        | "PURCHASE"
+        | "SALE"
+        | "WASTAGE"
+        | "ADJUSTMENT"
+        | "TRANSFER_IN"
+        | "TRANSFER_OUT"
+        | "RETURN"
+        | "REVERSAL";
       product_status: "DRAFT" | "PUBLISHED" | "HIDDEN" | "OUT_OF_STOCK";
       user_role: "ADMIN" | "COLLABORATOR";
     };
