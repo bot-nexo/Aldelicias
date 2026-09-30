@@ -1,0 +1,32 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+
+export default function AppError({
+  reset,
+}: {
+  error: Error;
+  reset: () => void;
+}) {
+  return (
+    <main className="mx-auto flex min-h-screen max-w-xl flex-col justify-center px-5 py-12">
+      <p className="text-sm font-semibold text-[var(--color-accent)]">
+        AlDelicias
+      </p>
+      <h1 className="mt-3 text-2xl font-semibold">
+        No pudimos cargar esta página
+      </h1>
+      <p className="mt-2 text-sm leading-6 text-[var(--color-ink-muted)]">
+        Ocurrió un problema inesperado. Intenta cargar la página de nuevo.
+      </p>
+      <Button
+        className="mt-6 w-fit"
+        onClick={reset}
+        type="button"
+        variant="secondary"
+      >
+        Reintentar
+      </Button>
+    </main>
+  );
+}

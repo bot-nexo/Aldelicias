@@ -1,0 +1,81 @@
+Actúa como un Director de Arte Digital y Desarrollador WebGL/Three.js experto en crear experiencias inmersivas y gamificadas de vanguardia.
+
+Necesito que diseñes la estructura, el flujo de usuario y los requerimientos técnicos para un sitio web e-commerce hipermoderno que rompa todos los esquemas tradicionales (cero scroll vertical aburrido, cero grillas estáticas). La navegación debe sentirse como un videojuego en 3ra persona con cámara libre o sobre rieles.
+
+El flujo de la experiencia (User Journey) debe ser el siguiente:
+
+1. Escena de Aterrizaje (El Hook):
+El usuario entra a la web y lo primero que ve en el centro de la pantalla es un modelo 3D hiperrealista o estilizado de una Van (furgoneta) cerrada, con una iluminación cinematográfica. El único elemento de UI en pantalla es un botón flotante y llamativo que dice "INGRESAR" o "ABRIR".
+
+2. El Hub de Categorías (La Transición):
+Al hacer clic, las puertas de la Van se abren y la cámara hace un zoom in profundo (efecto portal), transportando al usuario a un espacio tridimensional (puede ser un almacén futurista, un lienzo infinito o un túnel). Aquí, las "Categorías" no son texto, son zonas u objetos 3D masivos flotando en el espacio. El usuario selecciona hacia dónde quiere ir.
+
+3. El Plano de Productos (Exploración Espacial):
+Al elegir una categoría, la cámara viaja hacia esa zona. El usuario llega a un plano o ecosistema lleno de productos 3D esparcidos en el entorno.
+
+4. Interacción de Descubrimiento:
+El usuario navega acercándose a los productos (usando el scroll del mouse para avanzar o arrastrando para rotar). Cuando la cámara se acerca a una distancia específica de un producto, este se ilumina o reacciona, y aparece una interfaz holográfica (Glassmorphism o UI ultra minimalista) que revela el Nombre del producto y el Precio.
+
+Directrices de Estilo y Vibra:
+
+Fuera de lo común: Quiero que el usuario diga "Wow" a los 3 segundos.
+
+Navegación: Fluida, usando interpolación de cámara (GSAP) para que los movimientos no mareen.
+
+UI/UX: Interfaz casi invisible. Que el entorno 3D haga el trabajo.
+
+Entregable esperado:
+
+Describe la paleta de colores y el estilo de iluminación sugerido.
+
+Detalla cómo se debe comportar la cámara y los controles del usuario.
+
+Dame una propuesta de las tecnologías exactas a usar (ej: React Three Fiber, GSAP, Blender para modelos).
+
+Escribe el esquema de código inicial o la arquitectura para montar la primera escena de la Van.
+
+************************************************************************************************
+
+Actúa como un Director de Arte Digital y Desarrollador WebGL/Three.js experto en crear experiencias inmersivas y gamificadas de vanguardia.
+
+Necesito que diseñes la arquitectura, el flujo de usuario y los requerimientos técnicos para el e-commerce hipermoderno de "Aldelicias". El objetivo es abandonar el scroll vertical tradicional y reemplazarlo por una experiencia de exploración espacial 3D en primera o tercera persona, optimizada para navegadores web.
+
+El flujo de la experiencia (User Journey) debe ser el siguiente:
+
+1. Escena de Aterrizaje (El Hook):
+En el centro de la pantalla hay un modelo 3D hiperrealista de la Van (furgoneta) de repartos de Aldelicias, estacionada de espaldas. La iluminación es cinematográfica, de madrugada. El único elemento de UI es un botón vibrante flotante que dice "INGRESAR A LA COCINA".
+
+2. El Hub / Transición:
+Al hacer clic, las puertas traseras de la Van se abren repentinamente, emitiendo un vapor cálido. La cámara hace un zoom in profundo (efecto portal atravesando la van) y transporta al usuario al interior de una Cocina Industrial Moderna. Este entorno debe ser impecable, de acero inoxidable brillante, con luces LED de acento cálidas y pantallas holográficas sutiles de fondo.
+
+3. Exploración de Categorías (Las Estaciones):
+La cocina está dividida en estaciones de trabajo flotantes o áreas iluminadas masivas, que representan las categorías. El usuario navega hacia ellas usando el scroll del mouse (cámara sobre rieles) o arrastrando:
+
+Estación de Fritos: Iluminación dorada cálida. Aquí flotan en cámara lenta y alta resolución las empanadas, pasteles de carne/pollo y papas rellenas.
+
+Estación de Parva (Horneados): Cerca de hornos industriales con un resplandor naranja. Aquí orbitan los buñuelos perfectos, almojábanas, pasteles de queso y palitos.
+
+Estación Deli: Un área más fresca donde se exponen los sándwiches con sus ingredientes ligeramente separados y flotando.
+
+Estación de Bebidas: Una zona dividida en frío y calor. Vasos de jugos naturales con gotas de condensación animadas en el vidrio (efecto shader) y tazas de café emitiendo partículas de vapor.
+
+4. Interacción a Nivel de Producto:
+Al acercarse a un producto específico (ej: un Buñuelo), este reacciona girando lentamente. Aparece una interfaz holográfica (Glassmorphism translúcido) conectada al producto mediante una línea sutil, mostrando el Nombre del producto, el Precio, y detalles técnicos (ej: "68°C Caliente", "Recién salido"). Desde ahí, un botón de "Añadir al pedido".
+
+Directrices de Estilo y Vibra:
+
+Estética: Cyber-Gourmet o Industrial de Alta Gama. Comida callejera y tradicional colombiana elevada a un nivel visual tecnológico y premium.
+
+Navegación: Fluida, usando interpolación de cámara (GSAP) para evitar mareos. Transiciones sin cortes (seamless).
+
+UI/UX: Interfaz casi invisible y minimalista que no compita con la belleza de los modelos 3D de la comida.
+
+Entregables que necesito de ti:
+
+Describe la paleta de colores, materiales 3D (shaders) y el setup de iluminación sugerido para que la comida se vea apetitosa dentro de un entorno de acero industrial.
+
+Detalla el esquema de navegación de la cámara.
+
+Propón el stack tecnológico exacto (ej: React Three Fiber, Drei, GSAP).
+
+Escribe la estructura de componentes inicial en React/Three.js para cargar el modelo de la Van y la transición de la cámara.
