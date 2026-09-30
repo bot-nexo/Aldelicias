@@ -1,3 +1,6 @@
+import { hideProduct } from "@/app/admin/productos/actions";
+import Link from "next/link";
+
 type ProductRecord = {
   id: string;
   name: string;
@@ -8,6 +11,9 @@ type ProductRecord = {
   stock: number;
   minimumStock: number;
 };
+
+const editProductHref = (productId: string) =>
+  `/admin/productos/${productId}/editar`;
 
 type ProductListProps = {
   products: readonly ProductRecord[];
@@ -45,10 +51,15 @@ export function ProductList({ products }: ProductListProps) {
           </thead>
           <tbody>
             {products.map((product) => (
-              <tr key={product.id} className="border-t border-[var(--color-border)]">
+              <tr
+                key={product.id}
+                className="border-t border-[var(--color-border)]"
+              >
                 <td className="px-4 py-3">
                   <div>
-                    <p className="font-medium text-[var(--color-ink)]">{product.name}</p>
+                    <p className="font-medium text-[var(--color-ink)]">
+                      {product.name}
+                    </p>
                     <p className="text-xs text-[var(--color-ink-muted)]">
                       Costo {formatCurrency(product.cost)}
                     </p>
@@ -72,18 +83,23 @@ export function ProductList({ products }: ProductListProps) {
                 </td>
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <button
+                    <Link
                       className="text-sm font-medium text-[var(--color-accent)] hover:text-[var(--color-accent-hover)]"
-                      type="button"
+                      href={editProductHref(product.id)}
                     >
                       Editar
-                    </button>
-                    <button
-                      className="text-sm font-medium text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]"
-                      type="button"
-                    >
-                      Ver
-                    </button>
+                    </Link>
+                    {product.status !== "HIDDEN" && (
+                      <form action={hideProduct.bind(null, product.id)}>
+                        <button
+                          aria-label={`Ocultar ${product.name}`}
+                          className="text-sm font-medium text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]"
+                          type="submit"
+                        >
+                          Ocultar
+                        </button>
+                      </form>
+                    )}
                   </div>
                 </td>
               </tr>

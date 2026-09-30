@@ -1,9 +1,9 @@
 import {
-    ArrowUpRight,
-    Box,
-    DollarSign,
-    PackageSearch,
-    TrendingUp,
+  ArrowUpRight,
+  Box,
+  DollarSign,
+  PackageSearch,
+  TrendingUp,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -15,34 +15,24 @@ export default async function ProductsPage() {
   const profile = await requireActiveUserProfile();
   const supabase = await createClient();
 
-  const { data: products, error } = (await (supabase as any)
+  const { data: products, error } = await supabase
     .from("products")
     .select(
-      "id, name, status, sale_price, cost_price, minimum_stock, track_inventory, category_id",
+      "id, name, status, sale_price, cost_price, minimum_stock, track_inventory, category_id, categories(name)",
     )
     .eq("business_id", profile.business_id)
-    .order("created_at", { ascending: false })) as {
-    data: Array<{
-      id: string;
-      name: string;
-      status: "DRAFT" | "PUBLISHED" | "HIDDEN" | "OUT_OF_STOCK";
-      sale_price: number | string | null;
-      cost_price: number | string | null;
-      minimum_stock: number | string | null;
-      track_inventory: boolean | null;
-      category_id: string | null;
-    }> | null;
-    error: any;
-  };
+    .order("created_at", { ascending: false });
 
   if (error) {
-    throw new Error(error.message || "No se pudo cargar el catálogo de productos.");
+    throw new Error(
+      error.message || "No se pudo cargar el catálogo de productos.",
+    );
   }
 
   const rows = (products ?? []).map((product) => ({
     id: product.id,
     name: product.name,
-    category: product.category_id ? "Sin categoría" : "Sin categoría",
+    category: product.categories?.name ?? "Sin categoría",
     status: product.status,
     price: Number(product.sale_price ?? 0),
     cost: Number(product.cost_price ?? 0),
@@ -53,7 +43,9 @@ export default async function ProductsPage() {
   const stats = [
     {
       label: "Productos activos",
-      value: String(rows.filter((product) => product.status === "PUBLISHED").length),
+      value: String(
+        rows.filter((product) => product.status === "PUBLISHED").length,
+      ),
       hint: "Productos visibles en operación",
       icon: Box,
     },
@@ -91,22 +83,32 @@ export default async function ProductsPage() {
     <section>
       <div className="flex flex-col gap-4 border-b border-[var(--color-border)] pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--color-accent)]">
+          <p className="text-xs font-semibold tracking-[0.14em] text-[var(--color-accent)] uppercase">
             Inventario
           </p>
           <h1 className="mt-2 text-2xl font-semibold">Productos</h1>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--color-ink-muted)]">
-            Gestiona el catálogo, precios, estado del producto y existencia para la
-            operación del negocio.
+            Gestiona el catálogo, precios, estado del producto y existencia para
+            la operación del negocio.
           </p>
         </div>
-        <Link
-          className="inline-flex items-center justify-center gap-2 rounded-md bg-[var(--color-ink)] px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ring)]"
-          href="/admin/productos/nuevo"
-        >
-          Nuevo producto
-          <ArrowUpRight aria-hidden="true" size={16} />
-        </Link>
+        <div className="flex flex-col gap-2 sm:flex-row">
+          {profile.role === "ADMIN" && (
+            <Link
+              className="inline-flex items-center justify-center rounded-md border border-[var(--color-border)] bg-white px-4 py-2.5 text-sm font-medium text-[var(--color-ink)] transition hover:bg-[var(--color-surface-muted)]"
+              href="/admin/productos/categorias"
+            >
+              Categorías
+            </Link>
+          )}
+          <Link
+            className="inline-flex items-center justify-center gap-2 rounded-md bg-[var(--color-ink)] px-4 py-2.5 text-sm font-medium text-white transition hover:opacity-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-ring)]"
+            href="/admin/productos/nuevo"
+          >
+            Nuevo producto
+            <ArrowUpRight aria-hidden="true" size={16} />
+          </Link>
+        </div>
       </div>
 
       <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -116,7 +118,9 @@ export default async function ProductsPage() {
             className="rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4"
           >
             <div className="flex items-center justify-between gap-3">
-              <span className="text-sm text-[var(--color-ink-muted)]">{label}</span>
+              <span className="text-sm text-[var(--color-ink-muted)]">
+                {label}
+              </span>
               <span className="flex size-9 items-center justify-center rounded-md bg-[var(--color-surface-muted)] text-[var(--color-ink)]">
                 <Icon aria-hidden="true" size={18} />
               </span>
